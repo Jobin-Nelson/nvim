@@ -16,8 +16,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
       'Goto [R]eferences')
     map('gri', '<cmd>FzfLua lsp_implementations jump1=true ignore_current_line=true<cr>',
       'Goto [I]mplementation')
-    map('gy', '<cmd>FzfLua lsp_typedefs jump1=true ignore_current_line=true<cr>',
-      'Goto T[y]pe Definition')
+    map('grt', '<cmd>FzfLua lsp_typedefs jump1=true ignore_current_line=true<cr>',
+      'Goto [T]ype Definition')
     map('<leader>ld', '<cmd>FzfLua diagnostics_document jump1=true<cr>',
       'Open [D]iagnostic Buffer')
     map('<leader>lD', '<cmd>FzfLua diagnostics_workspace<cr>', 'Open [D]iagnostics Workspace')
@@ -148,7 +148,7 @@ local servers = {
   'marksman',
   'nil_ls',
   'pyright',
-  'ruff',
+  -- 'ruff',
   'vtsls',
   'tinymist',
 }

@@ -168,6 +168,8 @@ function M.status()
   local line_info = '%#StatuslineProgress# '
       .. icons.ui.Location .. ' %3.(%l:%v%) '
       .. icons.ui.ProgressDown .. ' %P '
+  local busy = "%{% &busy > 0 ? '◐ ' : '' %}%"
+  local progress_status = vim.ui.progress_status()
 
   return table.concat({
     mode_component(),
@@ -178,6 +180,8 @@ function M.status()
     filler,
     diagnostics(),
     lsp_component(),
+    busy,
+    progress_status,
     line_info,
   }, '  ')
 end
@@ -193,7 +197,8 @@ for group, opts in pairs(statusline_highlights) do
   vim.api.nvim_set_hl(0, group, opts)
 end
 
--- vim.opt.statusline= "%<%=%(%f %h%m%r%)%=%-14.(%l,%c%V%) %P"
-vim.opt.statusline = "%!v:lua.require'jobin.config.statusline'.status()"
+
+-- vim.api.nvim_put({vim.opt.statusline:get()}, 'l', true, false)
+-- "%<%f %h%w%m%r %{% v:lua.require('vim._core.util').term_exitcode() %}%=%{% luaeval('(package.loaded[''vim.ui''] and vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1) and vim.ui.progress_status()) or '''' ')%}%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}%{% &busy > 0 ? '◐ ' : '' %}%{% luaeval('(package.loaded[''vim.diagnostic''] and next(vim.diagnostic.count()) and vim.diagnostic.status() .. '' '') or '''' ') %}%{% &ruler ? ( &rulerformat == '' ? '%-14.(%l,%c%V%) %P' : &rulerformat ) : '' %}'"
 
 return M
