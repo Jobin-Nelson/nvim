@@ -1,3 +1,7 @@
+-- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+-- ┃                         Options                          ┃
+-- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
 vim.opt.showmode = false
 vim.opt.hlsearch = false
 vim.opt.number = true
@@ -19,6 +23,10 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.swapfile = false
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath('config') .. '/undodir'
 vim.opt.updatecount = 0
 vim.opt.completeopt = 'menu,menuone,noinsert,noselect,popup'
 vim.opt.termguicolors = true
@@ -26,6 +34,11 @@ vim.opt.conceallevel = 2
 vim.opt.signcolumn = 'yes'
 vim.opt.laststatus = 3
 -- vim.opt.statuscolumn = '%=%s%{v:relnum?v:relnum:v:lnum } %C '
+vim.opt.synmaxcol = 300
+vim.opt.virtualedit = 'block'
+vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
+-- vim.opt.iskeyword = vim.opt.iskeyword + '-'
+require('vim._core.ui2').enable({msg={target='cmd'}})
 
 -- Folding
 vim.opt.fillchars = {
@@ -54,28 +67,41 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
+-- scroll
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
 vim.opt.wrap = false
 vim.opt.incsearch = true
-vim.opt.undodir = vim.fn.stdpath('config') .. '/undodir'
-vim.opt.undofile = true
-vim.opt.swapfile = false
 vim.opt.pumheight = 10
 vim.opt.pumblend = 0
-vim.opt.virtualedit = 'block'
-vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
--- vim.opt.iskeyword = vim.opt.iskeyword + '-'
+
+-- format
 vim.opt.formatoptions = vim.opt.formatoptions
-    - "a" -- Auto formatting is BAD.
-    - "t" -- Don't auto format my code. I got linters for that.
-    + "c" -- In general, I like it when comments respect textwidth
-    + "q" -- Allow formatting comments w/ gq
-    - "o" -- O and o, don't continue comments
-    + "r" -- But do continue when pressing enter.
-    + "n" -- Indent past the formatlistpat, not underneath it.
-    + "j" -- Auto-remove comments if possible.
-    - "2" -- I'm not in gradeschool anymore
+  - "a" -- Auto formatting is BAD.
+  - "t" -- Don't auto format my code. I got linters for that.
+  + "c" -- In general, I like it when comments respect textwidth
+  + "q" -- Allow formatting comments w/ gq
+  - "o" -- O and o, don't continue comments
+  + "r" -- But do continue when pressing enter.
+  + "n" -- Indent past the formatlistpat, not underneath it.
+  + "j" -- Auto-remove comments if possible.
+  - "2" -- I'm not in gradeschool anymore
+
+-- disabled
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+-- ┃                       Colorscheme                        ┃
+-- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+vim.cmd('colorscheme cat')
+
+-- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+-- ┃                      Global Values                       ┃
+-- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 vim.g.git_worktrees = {
   {
@@ -87,8 +113,39 @@ vim.g.org_files = {
   personal = vim.fs.normalize('~/playground/org_files')
 }
 
--- Disabled
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_node_provider = 0
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+-- ┃                        Filetype                          ┃
+-- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+vim.filetype.add {
+  filename = {
+    ['.eslintrc.json'] = 'jsonc',
+  },
+  pattern = {
+    ['tsconfig*.json'] = 'jsonc',
+    ['.*/%.vscode/.*%.json'] = 'jsonc',
+    -- Borrowed from LazyVim. Mark huge files to disable features later.
+    ['.*'] = function(path, bufnr)
+      return vim.bo[bufnr]
+      and vim.bo[bufnr].filetype ~= 'bigfile'
+      and path
+      and vim.fn.getfsize(path) > (1024 * 500) -- 500 KB
+      and 'bigfile'
+      or nil
+    end,
+  },
+}
+
+vim.filetype.add({
+  extension = {
+    env = "dotenv",
+  },
+  filename = {
+    [".env"] = "dotenv",
+    ["env"] = "dotenv",
+  },
+  pattern = {
+    ["[jt]sconfig.*.json"] = "jsonc",
+    ["%.env%.[%w_.-]+"] = "dotenv",
+  },
+})
