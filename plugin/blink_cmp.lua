@@ -89,3 +89,20 @@ require('blink.cmp').setup({
     },
   },
 })
+
+local capabilities = {
+  workspace = {
+    fileOperations = {
+      didCreate = true,
+      didRename = true,
+      didDelete = true,
+      willCreate = true,
+      willRename = true,
+      willDelete = true,
+    }
+  }
+}
+
+vim.lsp.config('*', {
+  capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+})

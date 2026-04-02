@@ -56,6 +56,8 @@ map('n', '<leader>ui', function() require("jobin.config.custom.ui").set_indent()
 map('n', '<leader>us', function() require("jobin.config.custom.ui").toggle_spell() end, { desc = 'Toggle Spell' })
 map('n', '<leader>ud', function() require("jobin.config.custom.ui").toggle_diagnostics() end,
   { desc = 'Toggle Diagnostics' })
+map('n', '<leader>uD', function() require("jobin.config.custom.ui").toggle_virtual_lines() end,
+  { desc = 'Toggle virtual_lines' })
 map('n', '<leader>ut', function() require("jobin.config.custom.ui").toggle_transparency() end,
   { desc = 'Toggle Transparency' })
 map('n', '<leader>uh', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({})) end,

@@ -84,5 +84,10 @@ function M.custom_fold_text()
   return foldtext_start .. (" "):rep(win_width - foldtext_length - 10) .. foldtext_end
 end
 
+function M.toggle_virtual_lines()
+  vim.diagnostic.config({
+    virtual_lines = not vim.diagnostic.config().virtual_lines
+  })
+end
 
 return M

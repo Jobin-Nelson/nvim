@@ -28,8 +28,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
       'Lsp Workspace Symbols')
     map('gra', '<cmd>FzfLua lsp_code_actions<cr>', 'Lsp Code Actions')
 
-    map(']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, 'Next diagnostic')
-    map('[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, 'Previous diagnostic')
+    -- map(']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, 'Next diagnostic')
+    -- map('[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, 'Previous diagnostic')
     map('gD', vim.lsp.buf.declaration, 'Goto [D]eclaration')
     map('<leader>lq', vim.diagnostic.setloclist, 'Set diagnostic quickfix')
 
@@ -99,7 +99,7 @@ vim.diagnostic.config {
       [2] = "DiagnosticWarn",
     }
   },
-  -- virtual_lines = true,
+  virtual_lines = false,
   virtual_text = true,
   update_in_insert = false,
   underline = true,
@@ -112,6 +112,7 @@ vim.diagnostic.config {
     header = "",
     prefix = "",
   },
+  jump = { float = true }
 }
 
 
@@ -120,23 +121,18 @@ vim.diagnostic.config {
 -- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 
-local capabilities = {
-  workspace = {
-    fileOperations = {
-      didCreate = true,
-      didRename = true,
-      didDelete = true,
-      willCreate = true,
-      willRename = true,
-      willDelete = true,
-    }
-  }
-}
-
-
-vim.lsp.config('*', {
-  capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
-})
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.workspace.fileOperations = {
+--   didCreate = true,
+--   didRename = true,
+--   didDelete = true,
+--   willCreate = true,
+--   willRename = true,
+--   willDelete = true,
+-- }
+-- vim.lsp.config('*', {
+--   capabilities = capabilities
+-- })
 
 local servers = {
   'lua_ls',
