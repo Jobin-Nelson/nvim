@@ -2,48 +2,65 @@
 -- ┃                         Options                          ┃
 -- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-vim.opt.showmode = false
-vim.opt.hlsearch = false
+-- General
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = false
-vim.opt.mouse = 'a'
--- only set clipboard if not in ssh, to make sure the OSC 52
--- integration works automatically. Requires Neovim >= 0.10.0
--- https://github.com/neovim/neovim/commit/a389dc2f950ef89492dfc2d8334e421d2252cddf/
-vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
-vim.opt.list = true
-vim.opt.listchars = "tab:󰅂 ,trail:-,nbsp:+"
-vim.opt.linebreak = true
+vim.opt.wrap = false
+
+-- Scroll
+vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
+vim.opt.smoothscroll = true
+
+
+-- Indentation
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.autoindent = true
 vim.opt.breakindent = true
 vim.opt.breakindentopt = 'list:2,min:20,sbr'
-vim.opt.smoothscroll = true
+vim.opt.linebreak = true
 -- vim.opt.showbreak = '↪ '
+
+-- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+
+-- Visual
+vim.opt.termguicolors = true
 vim.opt.signcolumn = 'yes'
+vim.opt.showmode = false
+vim.opt.pumheight = 10
+vim.opt.pumblend = 0
+vim.opt.completeopt = 'menu,menuone,noinsert,noselect,popup'
+vim.opt.conceallevel = 2
+vim.opt.synmaxcol = 300
+vim.opt.virtualedit = 'block'
+vim.opt.list = true
+vim.opt.listchars = "tab:󰅂 ,trail:-,nbsp:+"
+require('vim._core.ui2').enable({msg={target='cmd'}})
+
+
+-- File handling
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath('config') .. '/undodir'
 vim.opt.updatecount = 0
-vim.opt.completeopt = 'menu,menuone,noinsert,noselect,popup'
-vim.opt.termguicolors = true
-vim.opt.conceallevel = 2
-vim.opt.virtualedit = 'block'
-vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
--- vim.opt.iskeyword = vim.opt.iskeyword + '-'
-require('vim._core.ui2').enable({msg={target='cmd'}})
+vim.opt.autoread = true
 
--- Statusline
--- vim.opt.statusline= "%<%=%(%f %h%m%r%)%=%-14.(%l,%c%V%) %P"
-vim.opt.statusline = "%!v:lua.require('jobin.config.statusline').status()"
--- vim.opt.statuscolumn = '%=%s%{v:relnum?v:relnum:v:lnum } %C '
-vim.opt.signcolumn = 'yes'
-vim.opt.laststatus = 3
-vim.opt.synmaxcol = 300
-
+-- Behavior
+-- vim.opt.iskeyword:append('-')
+-- vim.opt.path:append('**')
+vim.opt.mouse = 'a'
+vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 
 -- Folding
 vim.opt.fillchars = {
@@ -60,25 +77,23 @@ vim.opt.foldlevelstart = 1
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = "v:lua.require('jobin.config.custom.ui').custom_fold_text()"
-vim.opt.winbar = "%=%m %{expand('%:~:.')}"
-vim.opt.winborder = 'rounded'
+
+-- Split
+vim.opt.splitkeep = 'screen'
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
--- Indent
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.smartindent = true
 
--- scroll
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
-vim.opt.wrap = false
-vim.opt.incsearch = true
-vim.opt.pumheight = 10
-vim.opt.pumblend = 0
+-- Session
+vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
+
+-- Statusbar
+-- vim.opt.statusline= "%<%=%(%f %h%m%r%)%=%-14.(%l,%c%V%) %P"
+vim.opt.statusline = "%!v:lua.require('jobin.config.statusline').status()"
+-- vim.opt.statuscolumn = '%=%s%{v:relnum?v:relnum:v:lnum } %C '
+vim.opt.laststatus = 3
+vim.opt.winbar = "%=%m %{expand('%:~:.')}"
+vim.opt.winborder = 'rounded'
 
 -- format
 vim.opt.formatoptions = vim.opt.formatoptions

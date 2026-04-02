@@ -90,4 +90,8 @@ function M.toggle_virtual_lines()
   })
 end
 
+function M.toggle_codelens()
+  vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
+end
+
 return M

@@ -63,6 +63,16 @@ map('n', '<leader>ut', function() require("jobin.config.custom.ui").toggle_trans
 map('n', '<leader>uh', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({})) end,
   { desc = 'Toggle Inlay Hints' })
 
+-- Diagnostic
+map("n", "]e", function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity['ERROR'] }) end,
+  { desc = "Next Error" })
+map("n", "[e", function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity['ERROR'] }) end,
+  { desc = "Next Error" })
+map("n", "]w", function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity['WARN'] }) end,
+  { desc = "Next Warn" })
+map("n", "[w", function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity['WARN'] }) end,
+  { desc = "Next Warn" })
+
 -- Custom
 map('n', '<leader>js', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', { desc = 'Substitute word' })
 map('n', '<leader>jyf', '<cmd>let @+=@% <bar> echo "Filepath copied to clipboard"<cr>', { desc = 'Copy Filepath' })
@@ -72,7 +82,8 @@ map('n', '<leader>jp', '<cmd>set relativenumber! number! showmode! showcmd! hidd
   { desc = 'Presentation Mode' })
 map('n', '<leader>ji', '<cmd>!nsxiv <cfile><cr>', { desc = 'Image Preview' })
 map('v', '<leader>jT', ":!tr -s ' ' | column -t -s '|' -o '|'<cr>", { desc = 'Format Table' })
-map({ 'n', 'v' }, '<leader>jyd', function() require('jobin.config.custom.utils').yank_dedent() end, { desc = 'Copy Dedent Text' })
+map({ 'n', 'v' }, '<leader>jyd', function() require('jobin.config.custom.utils').yank_dedent() end,
+  { desc = 'Copy Dedent Text' })
 map('n', '<leader>jyc',
   ':redir @+> <bar>  <bar> redir END<Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left><Left>',
   { desc = 'Copy Output' })

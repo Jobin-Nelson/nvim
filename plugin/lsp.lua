@@ -28,8 +28,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       'Lsp Workspace Symbols')
     map('gra', '<cmd>FzfLua lsp_code_actions<cr>', 'Lsp Code Actions')
 
-    -- map(']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, 'Next diagnostic')
-    -- map('[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, 'Previous diagnostic')
     map('gD', vim.lsp.buf.declaration, 'Goto [D]eclaration')
     map('<leader>lq', vim.diagnostic.setloclist, 'Set diagnostic quickfix')
 
@@ -52,16 +50,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- end
 
     if client:supports_method('textDocument/codeLens') then
-      map('<leader>lL', vim.lsp.codelens.run, 'Run CodeLens', { 'n', 'v' })
-      map('<leader>ll', vim.lsp.codelens.enable, 'Refresh & Display CodeLens', { 'n', 'v' })
+      map('<leader>ll', require('jobin.config.custom..ui').toggle_codelens, 'Toggle Codelens')
       vim.lsp.codelens.enable()
-
-      -- Uncomment for automatic refresh of codelens
-      -- vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
-      --   group = vim.api.nvim_create_augroup("jobin/lspRefreshCodeLens", { clear = true }),
-      --   buffer = args.buf,
-      --   callback = vim.lsp.codelens.enable,
-      -- })
     end
   end,
   desc = 'Create keymaps for lsp attached buffers',
