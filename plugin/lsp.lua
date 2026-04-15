@@ -136,6 +136,7 @@ local servers = {
   'pyright',
   -- 'ruff',
   'vtsls',
+  'tailwindcss',
   'tinymist',
 }
 

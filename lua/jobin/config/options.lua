@@ -89,7 +89,7 @@ vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
 
 -- Statusbar
 -- vim.opt.statusline= "%<%=%(%f %h%m%r%)%=%-14.(%l,%c%V%) %P"
-vim.opt.statusline = "%!v:lua.require('jobin.config.statusline').status()"
+-- vim.opt.statusline = "%!v:lua.require('jobin.config.statusline').status()"
 -- vim.opt.statuscolumn = '%=%s%{v:relnum?v:relnum:v:lnum } %C '
 vim.opt.laststatus = 3
 vim.opt.winbar = "%=%m %{expand('%:~:.')}"
