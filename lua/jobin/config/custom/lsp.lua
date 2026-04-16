@@ -24,7 +24,7 @@ end
 function M.display_active_lsp()
   local lsp_names = vim.tbl_map(function(lsp) return lsp.name end, vim.lsp.get_clients())
   vim.notify(
-    ("LSP: %s"):format(table.concat(lsp_names, ', ')),
+    ("#%s LSP: %s"):format(#lsp_names, table.concat(lsp_names, ', ')),
     vim.log.levels.INFO,
     { title = 'LSP' }
   )

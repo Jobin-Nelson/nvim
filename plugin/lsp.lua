@@ -129,14 +129,14 @@ local servers = {
   'jsonls',
   'yamlls',
   -- 'bashls',
-  'emmet_language_server',
   'astro',
   'marksman',
   'nil_ls',
   'pyright',
   -- 'ruff',
   'vtsls',
-  'tailwindcss',
+  -- 'tailwindcss',
+  -- 'emmet_language_server',
   'tinymist',
 }
 
