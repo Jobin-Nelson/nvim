@@ -35,9 +35,6 @@ map('n', '<leader>bh', function() require('jobin.config.custom.utils').delete_hi
 map('n', '<leader>bd', function() require('jobin.config.custom.utils').better_bufdelete() end,
   { desc = 'Better bufdelete' })
 
--- Packages
-map('n', '<leader>z', '<cmd>Lazy<cr>', { desc = 'Plugin Status' })
-
 -- Terminal
 map('t', '<C-w>', '<C-\\><C-n><C-w>', { desc = 'Terminal window command' })
 map('t', '<esc><esc>', '<C-\\><C-n>', { desc = 'Terminal normal mode' })

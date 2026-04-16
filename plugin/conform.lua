@@ -2,70 +2,34 @@
 -- ┃                      User Commands                       ┃
 -- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
----@class MyCmdSubcommand
----@field impl fun(args:string[], opts: table) The command implementation
----@field complete? fun(subcmd_arg_lead: string): string[] (optional) Command completions callback, taking the lead of the subcommand's arguments
-
----@type table<string, MyCmdSubcommand>
-local subcommand_tbl = {
-  disable = {
-    impl = function(_, opts)
-      ---@diagnostic disable-next-line: undefined-field
-      if opts.bang then
-        -- FormatDisable! will disable formatting just for this buffer
-        vim.b.disable_autoformat = true
-      else
-        vim.g.disable_autoformat = true
-      end
-    end,
-  },
-  enable = {
-    impl = function(_, _)
-      vim.b.disable_autoformat = false
-      vim.g.disable_autoformat = false
-    end,
-  },
-}
-
----@param opts table :h lua-guide-commands-create
-local function my_cmd(opts)
-  local fargs = opts.fargs
-  local subcommand_key = fargs[1]
-  -- Get the subcommand's arguments, if any
-  local args = #fargs > 1 and vim.list_slice(fargs, 2, #fargs) or {}
-  local subcommand = subcommand_tbl[subcommand_key]
-  if not subcommand then
+vim.api.nvim_create_user_command("Format", function(opts)
+  local subcommand_key = opts.fargs[1]
+  if subcommand_key == 'disable' then
+    if opts.bang then
+      -- FormatDisable! will disable formatting just for this buffer
+      vim.b.disable_autoformat = true
+    else
+      vim.g.disable_autoformat = true
+    end
+  elseif subcommand_key == 'enable' then
+    vim.b.disable_autoformat = false
+    vim.g.disable_autoformat = false
+  else
     vim.notify("Format: Unknown command: " .. subcommand_key, vim.log.levels.ERROR)
-    return
   end
-  -- Invoke the subcommand
-  subcommand.impl(args, opts)
-end
-
-vim.api.nvim_create_user_command("Format", my_cmd, {
+end, {
   nargs = "+",
   desc = "Enable/Disable format on save",
   complete = function(arg_lead, cmdline, _)
-    -- Get the subcommand.
-    local subcmd_key, subcmd_arg_lead = cmdline:match("^['<,'>]*Format[!]*%s(%S+)%s(.*)$")
-    if subcmd_key
-        and subcmd_arg_lead
-        and subcommand_tbl[subcmd_key]
-        and subcommand_tbl[subcmd_key].complete
-    then
-      -- The subcommand has completions. Return them.
-      return subcommand_tbl[subcmd_key].complete(subcmd_arg_lead)
-    end
-    -- Check if cmdline is a subcommand
-    if cmdline:match("^['<,'>]*Format[!]*%s+%w*$") then
-      -- Filter subcommands that match
-      local subcommand_keys = vim.tbl_keys(subcommand_tbl)
-      return vim.iter(subcommand_keys)
-          :filter(function(key)
-            return key:find(arg_lead) ~= nil
-          end)
-          :totable()
-    end
+    local arg_list = vim.split(cmdline, '%s+')
+    if #arg_list >= 3 then return end
+
+    local subcommand_keys = { 'enable', 'disable' }
+    return vim.iter(subcommand_keys)
+        :filter(function(key)
+          return key:find(arg_lead) ~= nil
+        end)
+        :totable()
   end,
   bang = true, -- If you want to support ! modifiers
 })

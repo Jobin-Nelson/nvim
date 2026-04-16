@@ -1,6 +1,54 @@
 -- User commands best practices
 -- https://github.com/lumen-oss/nvim-best-practices?tab=readme-ov-file#speaking_head-user-commands
 
+vim.api.nvim_create_user_command('Pack', function(opts)
+  local subcommand_key = opts.fargs[1]
+  if subcommand_key == 'check' then
+    local active_plugins = vim.iter(vim.pack.get())
+        :filter(function(p) return p.active end)
+        :map(function(p) return p.spec.name end)
+        :totable()
+    local inactive_plugins = vim.iter(vim.pack.get())
+        :filter(function(p) return not p.active end)
+        :map(function(p) return p.spec.name end)
+        :totable()
+
+    print(('==== #%s Inactive Plugins ===='):format(#inactive_plugins))
+    print('')
+
+    for _, p in ipairs(inactive_plugins) do
+      print(p)
+    end
+
+    print('')
+    print(('==== #%s Active Plugins ===='):format(#active_plugins))
+    print('')
+
+    for _, p in ipairs(active_plugins) do
+      print(p)
+    end
+  elseif subcommand_key == 'update' then
+    vim.pack.update()
+  else
+    vim.notify("Pack: Unknown command: " .. subcommand_key, vim.log.levels.ERROR)
+  end
+end, {
+  nargs = "+",
+  desc = "Package manager utility",
+  complete = function(arg_lead, cmdline, _)
+    local arg_list = vim.split(cmdline, '%s+')
+    if #arg_list >= 3 then return end
+
+    local subcommand_keys = { 'check', 'update' }
+    return vim.iter(subcommand_keys)
+        :filter(function(key)
+          return key:find(arg_lead) ~= nil
+        end)
+        :totable()
+  end,
+})
+
+
 vim.api.nvim_create_user_command('DiffOrig', function()
   local start = vim.api.nvim_get_current_buf()
   vim.cmd('vnew | set buftype=nofile | read ++edit # | 0d_ | diffthis')
@@ -157,4 +205,3 @@ end, {
     end
   end,
 })
-
