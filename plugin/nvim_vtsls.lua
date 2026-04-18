@@ -8,10 +8,8 @@ vim.api.nvim_create_autocmd('FileType', {
     'javascriptreact'
   },
   callback = function()
-    vim.cmd.packadd('nvim-vtsls')
+    vim.pack.add({
+      'https://github.com/yioneko/nvim-vtsls',
+    }, { confirm = false })
   end
 })
-
-vim.pack.add({
-  'https://github.com/yioneko/nvim-vtsls',
-}, { load = false, confirm = false })

@@ -1,20 +1,21 @@
-vim.pack.add({
-  'https://github.com/nvim-neotest/neotest',
-  'https://github.com/nvim-neotest/nvim-nio',
-  'https://github.com/nvim-lua/plenary.nvim',
-  -- 'https://github.com/nvim-treesitter/nvim-treesitter',
-
-  'https://github.com/nvim-neotest/neotest-python',
-}, { load = false, confirm = false })
-
 require('jobin.config.lazy').ll_on_map(
   'n',
   '<leader>tr',
-  { 'neotest' },
   function() require("neotest").run.run() end,
   function()
-    vim.keymap.set('n', "<leader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end, { desc = "Run File" })
-    vim.keymap.set('n', "<leader>tT", function() require("neotest").run.run(vim.uv.cwd()) end, { desc = "Run All Test Files" })
+    vim.pack.add({
+      'https://github.com/nvim-neotest/neotest',
+      'https://github.com/nvim-neotest/nvim-nio',
+      'https://github.com/nvim-lua/plenary.nvim',
+      -- 'https://github.com/nvim-treesitter/nvim-treesitter',
+
+      'https://github.com/nvim-neotest/neotest-python',
+    }, { confirm = false })
+
+    vim.keymap.set('n', "<leader>tt", function() require("neotest").run.run(vim.fn.expand("%")) end,
+      { desc = "Run File" })
+    vim.keymap.set('n', "<leader>tT", function() require("neotest").run.run(vim.uv.cwd()) end,
+      { desc = "Run All Test Files" })
     vim.keymap.set('n', "<leader>tr", function() require("neotest").run.run() end, { desc = "Run Nearest" })
     vim.keymap.set('n', "<leader>tl", function() require("neotest").run.run_last() end, { desc = "Run Last" })
     vim.keymap.set('n', "<leader>ts", function() require("neotest").summary.toggle() end, { desc = "Toggle Summary" })
@@ -36,5 +37,5 @@ require('jobin.config.lazy').ll_on_map(
       status = { virtual_text = true },
       output = { open_on_run = true },
     })
-  end
+  end, 'Neotest'
 )

@@ -59,7 +59,9 @@ vim.api.nvim_create_autocmd('BufRead', {
   once = true, -- Only run once per session
   callback = function()
     -- 1. Load the plugin
-    vim.cmd.packadd("crates.nvim")
+    vim.pack.add({
+      'https://github.com/Saecki/crates.nvim',
+    }, { confirm = false })
 
     -- 2. Configure it
     require("crates").setup({
@@ -81,13 +83,18 @@ vim.api.nvim_create_autocmd('BufRead', {
   end,
 })
 
-vim.pack.add({
-  {
-    src = 'https://github.com/mrcjkb/rustaceanvim',
-    version = vim.version.range('^8'),
-  }
-}, { confirm = false })
-
-vim.pack.add({
-  'https://github.com/Saecki/crates.nvim',
-}, { load = false, confirm = false })
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('jobin/filetype', { clear = false }),
+  once = true,
+  pattern = {
+    'rust',
+  },
+  callback = function()
+    vim.pack.add({
+      {
+        src = 'https://github.com/mrcjkb/rustaceanvim',
+        version = vim.version.range('^8'),
+      }
+    }, { confirm = false })
+  end
+})

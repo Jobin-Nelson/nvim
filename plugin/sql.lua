@@ -12,15 +12,12 @@ vim.g.db_ui_use_nvim_notify = true
 -- default keymap: <leader>S
 vim.g.db_ui_execute_on_save = false
 
-vim.pack.add({
-  'https://github.com/tpope/vim-dadbod',
-  'https://github.com/kristijanhusak/vim-dadbod-ui',
-  'https://github.com/kristijanhusak/vim-dadbod-completion',
-}, { load = false, confirm = false })
 
 
-
-require('jobin.config.lazy').ll_on_cmd(
-  'DBUI',
-  { 'vim-dadbod', 'vim-dadbod-ui', 'vim-dadbod-completion' }
-)
+require('jobin.config.lazy').ll_on_cmd('DBUI', function()
+  vim.pack.add({
+    'https://github.com/tpope/vim-dadbod',
+    'https://github.com/kristijanhusak/vim-dadbod-ui',
+    'https://github.com/kristijanhusak/vim-dadbod-completion',
+  }, { confirm = false })
+end, 'SQL')

@@ -10,32 +10,30 @@ local function get_args(config)
   return config
 end
 
-vim.pack.add({
-  {
-    src = 'https://github.com/mfussenegger/nvim-dap',
-    name = 'dap',
-  },
-  {
-    src = 'https://github.com/rcarriga/nvim-dap-ui',
-    name = 'dapui',
-  },
-  {
-    src = 'https://github.com/nvim-neotest/nvim-nio',
-  },
-  {
-    src = 'https://github.com/theHamsta/nvim-dap-virtual-text',
-  },
-  {
-    src = 'https://github.com/mfussenegger/nvim-dap-python',
-  }
-}, { load = false, confirm = false })
-
 require('jobin.config.lazy').ll_on_map(
   'n',
   '<leader>db',
-  { 'dap', 'dapui', 'nvim-nio', 'nvim-dap-virtual-text' },
   function() require("dap").toggle_breakpoint() end,
   function()
+    vim.pack.add({
+      {
+        src = 'https://github.com/mfussenegger/nvim-dap',
+        name = 'dap',
+      },
+      {
+        src = 'https://github.com/rcarriga/nvim-dap-ui',
+        name = 'dapui',
+      },
+      {
+        src = 'https://github.com/nvim-neotest/nvim-nio',
+      },
+      {
+        src = 'https://github.com/theHamsta/nvim-dap-virtual-text',
+      },
+      {
+        src = 'https://github.com/mfussenegger/nvim-dap-python',
+      }
+    }, { confirm = false })
     vim.keymap.set('n', "<leader>db", function() require("dap").toggle_breakpoint() end, { desc = "Toggle Breakpoint" })
     vim.keymap.set('n', "<leader>dc", function() require("dap").continue() end, { desc = "Continue" })
     vim.keymap.set('n', "<leader>da", function() require("dap").continue({ before = get_args }) end,
@@ -95,5 +93,4 @@ require('jobin.config.lazy').ll_on_map(
     end
 
     require('dap-python').setup('uv')
-  end
-)
+  end, 'DAP')

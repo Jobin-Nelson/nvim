@@ -5,13 +5,11 @@ vim.api.nvim_create_autocmd('FileType', {
     'typst',
   },
   callback = function()
-    vim.cmd.packadd('typst-preview')
+    vim.pack.add({
+      {
+        src = 'https://github.com/chomosuke/typst-preview.nvim',
+        version = vim.version.range('^1'),
+      }
+    }, { confirm = false })
   end
 })
-
-vim.pack.add({
-  {
-    src = 'https://github.com/chomosuke/typst-preview.nvim',
-    version = vim.version.range('^1'),
-  }
-}, { load = false, confirm = false })

@@ -48,7 +48,6 @@ end, {
   end,
 })
 
-
 vim.api.nvim_create_user_command('DiffOrig', function()
   local start = vim.api.nvim_get_current_buf()
   vim.cmd('vnew | set buftype=nofile | read ++edit # | 0d_ | diffthis')
