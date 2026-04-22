@@ -44,7 +44,7 @@ vim.opt.synmaxcol = 300
 vim.opt.virtualedit = 'block'
 vim.opt.list = true
 vim.opt.listchars = "tab:󰅂 ,trail:-,nbsp:+"
-require('vim._core.ui2').enable({msg={target='cmd'}})
+require('vim._core.ui2').enable({ msg = { target = 'cmd' } })
 
 
 -- File handling
@@ -71,7 +71,7 @@ vim.opt.fillchars = {
   diff = "╱",
   eob = " ",
 }
-vim.o.foldcolumn='0'
+vim.o.foldcolumn = '0'
 vim.opt.foldenable = true
 vim.opt.foldlevelstart = 1
 vim.opt.foldmethod = "expr"
@@ -89,7 +89,7 @@ vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
 
 -- Statusbar
 -- vim.opt.statusline= "%<%=%(%f %h%m%r%)%=%-14.(%l,%c%V%) %P"
--- vim.opt.statusline = "%!v:lua.require('jobin.config.statusline').status()"
+vim.opt.statusline = "%!v:lua.require('jobin.config.statusline').status()"
 -- vim.opt.statuscolumn = '%=%s%{v:relnum?v:relnum:v:lnum } %C '
 vim.opt.laststatus = 3
 vim.opt.winbar = "%=%m %{expand('%:~:.')}"
@@ -97,15 +97,15 @@ vim.opt.winborder = 'rounded'
 
 -- format
 vim.opt.formatoptions = vim.opt.formatoptions
-  - "a" -- Auto formatting is BAD.
-  - "t" -- Don't auto format my code. I got linters for that.
-  + "c" -- In general, I like it when comments respect textwidth
-  + "q" -- Allow formatting comments w/ gq
-  - "o" -- O and o, don't continue comments
-  + "r" -- But do continue when pressing enter.
-  + "n" -- Indent past the formatlistpat, not underneath it.
-  + "j" -- Auto-remove comments if possible.
-  - "2" -- I'm not in gradeschool anymore
+    - "a" -- Auto formatting is BAD.
+    - "t" -- Don't auto format my code. I got linters for that.
+    + "c" -- In general, I like it when comments respect textwidth
+    + "q" -- Allow formatting comments w/ gq
+    - "o" -- O and o, don't continue comments
+    + "r" -- But do continue when pressing enter.
+    + "n" -- Indent past the formatlistpat, not underneath it.
+    + "j" -- Auto-remove comments if possible.
+    - "2" -- I'm not in gradeschool anymore
 
 -- disabled
 vim.g.loaded_python3_provider = 0
@@ -117,7 +117,7 @@ vim.g.loaded_netrwPlugin = 1
 -- ┃                       Colorscheme                        ┃
 -- ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-vim.cmd('colorscheme cat')
+-- vim.cmd('colorscheme cat')
 
 -- ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 -- ┃                      Global Values                       ┃
@@ -147,11 +147,11 @@ vim.filetype.add {
     -- Borrowed from LazyVim. Mark huge files to disable features later.
     ['.*'] = function(path, bufnr)
       return vim.bo[bufnr]
-      and vim.bo[bufnr].filetype ~= 'bigfile'
-      and path
-      and vim.fn.getfsize(path) > (1024 * 500) -- 500 KB
-      and 'bigfile'
-      or nil
+          and vim.bo[bufnr].filetype ~= 'bigfile'
+          and path
+          and vim.fn.getfsize(path) > (1024 * 500) -- 500 KB
+          and 'bigfile'
+          or nil
     end,
   },
 }
