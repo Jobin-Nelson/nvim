@@ -1,4 +1,7 @@
 -- Options
+vim.opt_local.tabstop = 2
+vim.opt_local.softtabstop = 2
+vim.opt_local.shiftwidth = 2
 vim.opt_local.wrap = true
 vim.opt.foldtext = "v:lua.require('jobin.config.custom.ui').custom_fold_text()"
 
