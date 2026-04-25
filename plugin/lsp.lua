@@ -138,6 +138,7 @@ local servers = {
   -- 'tailwindcss',
   -- 'emmet_language_server',
   'tinymist',
+  'rust_analyzer',
 }
 
 vim.lsp.enable(servers)
