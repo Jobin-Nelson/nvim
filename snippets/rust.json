@@ -1,6 +1,6 @@
 {
   "comment-section": {
-    "prefix": "cs",
+    "prefix": "j-cs",
     "body": [
       "// region:    --- ${1:Section}",
       "",
@@ -11,15 +11,14 @@
     "description": "comment section"
   },
   "comment-delimiter": {
-    "prefix": "cd",
+    "prefix": "j-cd",
     "body": [
       "// -- $0"
     ],
     "description": "comment delimiter"
   },
-
   "test-module": {
-    "prefix": "mtest",
+    "prefix": "j-mtest",
     "body": [
       "// region:    --- Tests",
       "",
@@ -37,7 +36,7 @@
     "description": "unit test submodule"
   },
   "async-comment-test": {
-    "prefix": "actest",
+    "prefix": "j-actest",
     "body": [
       "#[tokio::test]",
       "async fn test_${1:name}() -> Result<()> {",
@@ -53,7 +52,7 @@
     "description": "async test with comment scaffolding"
   },
   "comment-test": {
-    "prefix": "ctest",
+    "prefix": "j-ctest",
     "body": [
       "#[test]",
       "fn test_${1:name}() -> Result<()> {",
@@ -68,16 +67,15 @@
     ],
     "description": "test with comment scaffolding"
   },
-
   "result-box-dyn-error": {
-    "prefix": "rbde",
+    "prefix": "j-rbde",
     "body": [
       "Result<${1:()}, Box<dyn std::error:Error>>"
     ],
     "description": "result<(), box dyn ...>"
   },
   "simple-enum-error": {
-    "prefix": "see",
+    "prefix": "j-see",
     "body": [
       "pub type Result<T> = core::result::Result<T, Error>;",
       "",
@@ -101,14 +99,13 @@
     "description": "simple enum error"
   },
   "derive-enum-error": {
-    "prefix": "dee",
+    "prefix": "j-dee",
     "body": [
-      "use derive_more::{Display, From};",
+      "use derive_more::From;",
       "",
       "pub type Result<T> = core::result::Result<T, Error>;",
       "",
-      "#[derive(Debug, Display, From)]",
-      "#[display(\"{self:?}\")]",
+      "#[derive(Debug, From)]",
       "pub enum Error {",
       "\t$0",
       "\t// -- Externals",
@@ -118,6 +115,12 @@
       "",
       "// region:    --- Error Boilerplate",
       "",
+      "impl core::fmt::Display for Error {",
+      "\tfn fmt(&self, fmt: &mut core::fmt::Formatter) -> core::result::Result<(), core::fmt::Error> {",
+      "\t\twrite!(fmt, \"{self:?}\")",
+      "\t}",
+      "}",
+      "",
       "impl std::error::Error for Error {}",
       "",
       "// endregion: --- Error Boilerplate"
@@ -125,14 +128,13 @@
     "description": "derive enum error"
   },
   "derive-custom-enum-error": {
-    "prefix": "dcee",
+    "prefix": "j-dcee",
     "body": [
-      "use derive_more::{Display, From};",
+      "use derive_more::From;",
       "",
       "pub type Result<T> = core::result::Result<T, Error>;",
       "",
-      "#[derive(Debug, Display, From)]",
-      "#[display(\"{self:?}\")]",
+      "#[derive(Debug, From)]",
       "pub enum Error {",
       "\t#[from(String, &String, &str)]",
       "\tCustom(String),",
@@ -146,18 +148,20 @@
       "// region:    --- Custom",
       "",
       "impl Error {",
-      "\tpub fn custom_from_err(err: impl std::error::Error) -> Self {",
-      "\t\tSelf::Custom(err.to_string())",
-      "\t}",
-      "",
-      "\tpub fn custom(val: impl Into<String>) -> Self {",
-      "\t\tSelf::Custom(val.into())",
+      "\tpub fn custom(val: impl std::fmt::Display) -> Self {",
+      "\t\tSelf::Custom(val.to_string())",
       "\t}",
       "}",
       "",
       "// endregion: --- Custom",
       "",
       "// region:    --- Error Boilerplate",
+      "",
+      "impl core::fmt::Display for Error {",
+      "\tfn fmt(&self, fmt: &mut core::fmt::Formatter) -> core::result::Result<(), core::fmt::Error> {",
+      "\t\twrite!(fmt, \"{self:?}\")",
+      "\t}",
+      "}",
       "",
       "impl std::error::Error for Error {}",
       "",
@@ -166,9 +170,8 @@
     ],
     "description": "derive custom enum error"
   },
-
   "example-main": {
-    "prefix": "xm",
+    "prefix": "j-xm",
     "body": [
       "fn main() -> Result<(), Box<dyn std::error::Error>> {",
       "\t$0;",
@@ -180,7 +183,7 @@
     "description": "example main"
   },
   "async-example-main": {
-    "prefix": "axm",
+    "prefix": "j-axm",
     "body": [
       "#[tokio::main]",
       "async fn main() -> Result<(), Box<dyn std::error::Error>> {",
@@ -192,9 +195,8 @@
     ],
     "description": "async example main"
   },
-
   "lib-module": {
-    "prefix": "lm",
+    "prefix": "j-lm",
     "body": [
       "// region:    --- Modules",
       "",

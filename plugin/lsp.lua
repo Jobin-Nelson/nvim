@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     if client:supports_method('textDocument/codeLens') then
       map('<leader>ll', require('jobin.config.custom..ui').toggle_codelens, 'Toggle Codelens')
-      vim.lsp.codelens.enable()
+      -- vim.lsp.codelens.enable()
     end
   end,
   desc = 'Create keymaps for lsp attached buffers',
@@ -138,7 +138,6 @@ local servers = {
   -- 'tailwindcss',
   -- 'emmet_language_server',
   'tinymist',
-  'rust_analyzer',
 }
 
 vim.lsp.enable(servers)

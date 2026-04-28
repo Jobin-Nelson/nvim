@@ -32,7 +32,7 @@ return {
         }
       },
       codeLens = {
-        enable = true,
+        enable = false,
       },
       doc = {
         privateName = { '^_' },
@@ -48,4 +48,3 @@ return {
     },
   }
 }
-
