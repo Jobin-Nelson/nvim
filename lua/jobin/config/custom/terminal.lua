@@ -63,7 +63,15 @@ function M.send_lines_term(mode)
   end)
 end
 
--- vim.keymap.set({ 'n', 'v' }, '<leader>rt', function() M.send_lines_term('visual') end)
+---@param cmd string[]
+function M.send_lines_ext_term(cmd)
+  require('jobin.config.custom.utils').apply_multimodal(function(input)
+    vim.system(cmd, { stdin = input })
+    return {}
+  end)
+end
+
+vim.keymap.set({ 'n', 'v' }, '<leader>rt', function() M.send_lines_ext_term({ 'tmuxify.sh', '-r' }) end)
 -- vim.keymap.set('n', '<leader>rr', ':update | luafile %<cr>')
 
 return M
