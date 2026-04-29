@@ -73,12 +73,12 @@ map("n", "[w", function() vim.diagnostic.jump({ count = -1, severity = vim.diagn
 -- Custom
 map('n', '<leader>js', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', { desc = 'Substitute word' })
 map('n', '<leader>jyf', '<cmd>let @+=@% <bar> echo "Filepath copied to clipboard"<cr>', { desc = 'Copy Filepath' })
+map('x', '<leader>ji', ':silent w !tmuxify.sh -p<cr>', { desc = 'Send lines to ipython', silent = true })
 map('x', '<leader>je', ':silent w !tmuxify.sh -r<cr>', { desc = 'Send lines to tmux pane', silent = true })
 map('x', '<leader>jx', ':lua<cr>', { desc = 'Execute lua' })
 map('n', '<leader>jS', '[s1z=``', { desc = 'Fix last Spelling error' })
 map('n', '<leader>jp', '<cmd>set relativenumber! number! showmode! showcmd! hidden! ruler!<cr>',
   { desc = 'Presentation Mode' })
-map('n', '<leader>ji', '<cmd>!nsxiv <cfile><cr>', { desc = 'Image Preview' })
 map('v', '<leader>jT', ":!tr -s ' ' | column -t -s '|' -o '|'<cr>", { desc = 'Format Table' })
 map({ 'n', 'v' }, '<leader>jyd', function() require('jobin.config.custom.utils').yank_dedent() end,
   { desc = 'Copy Dedent Text' })
