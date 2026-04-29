@@ -73,6 +73,7 @@ map("n", "[w", function() vim.diagnostic.jump({ count = -1, severity = vim.diagn
 -- Custom
 map('n', '<leader>js', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', { desc = 'Substitute word' })
 map('n', '<leader>jyf', '<cmd>let @+=@% <bar> echo "Filepath copied to clipboard"<cr>', { desc = 'Copy Filepath' })
+map('x', '<leader>je', ':silent w !tmuxify.sh -r<cr>', { desc = 'Send lines to tmux pane', silent = true })
 map('x', '<leader>jx', ':lua<cr>', { desc = 'Execute lua' })
 map('n', '<leader>jS', '[s1z=``', { desc = 'Fix last Spelling error' })
 map('n', '<leader>jp', '<cmd>set relativenumber! number! showmode! showcmd! hidden! ruler!<cr>',

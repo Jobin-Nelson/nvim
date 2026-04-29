@@ -30,7 +30,7 @@ function M.send_lines_term(mode)
     visual = { 'v', '.' },
     normal = { '.', '.' },
   }
-  local start_char, end_char = unpack(modes[mode])
+  local start_char, end_char = table.unpack(modes[mode])
   local lines = vim.api.nvim_buf_get_lines(
     0,
     vim.fn.line(start_char) - 1,
