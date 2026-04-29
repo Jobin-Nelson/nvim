@@ -71,7 +71,7 @@ function M.send_lines_ext_term(cmd)
   end)
 end
 
-vim.keymap.set({ 'n', 'v' }, '<leader>rt', function() M.send_lines_ext_term({ 'tmuxify.sh', '-r' }) end)
+-- vim.keymap.set({ 'n', 'v' }, '<leader>rt', function() M.send_lines_ext_term({ 'tmuxify.sh', '-r' }) end)
 -- vim.keymap.set('n', '<leader>rr', ':update | luafile %<cr>')
 
 return M
