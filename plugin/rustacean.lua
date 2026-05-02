@@ -14,6 +14,15 @@ vim.g.rustaceanvim = {
     default_settings = {
       -- rust-analyzer language server configuration
       ["rust-analyzer"] = {
+        procMacro = {
+          ignored = {
+            leptos_macro = {
+              -- optional:
+              -- 'component',
+              'server',
+            }
+          }
+        },
         cargo = {
           allFeatures = true,
           loadOutDirsFromCheck = true,
