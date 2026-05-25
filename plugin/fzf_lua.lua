@@ -69,8 +69,11 @@ end, { desc = 'Pick Icon' })
 
 -- Second brain
 map('n', '<leader>fss', function()
-  require("jobin.config.custom.fzf.pickers").fzf_second_brain()
+  require("jobin.config.custom.fzf.pickers").fzf_second_brain_files()
 end, { desc = 'Find Second brain files' })
+map('n', '<leader>fsw', function()
+  require("jobin.config.custom.fzf.pickers").fzf_second_brain_grep()
+end, { desc = 'Grep Second brain files' })
 map('n', '<leader>fsi', function()
   require("jobin.config.custom.fzf.pickers").fzf_read_file({
     cwd =

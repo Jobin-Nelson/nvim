@@ -105,7 +105,14 @@ M.fzf_move_file = function(opts)
   fzf_lua.fzf_exec(cmd, opts)
 end
 
-M.fzf_second_brain = function()
+M.fzf_second_brain_grep = function()
+  local second_brain = "~/playground/second_brain"
+  fzf_lua.live_grep({
+    cwd = second_brain,
+  })
+end
+
+M.fzf_second_brain_files = function()
   local second_brain = "~/playground/second_brain"
   fzf_lua.files({
     cwd = second_brain,
@@ -404,7 +411,6 @@ function M.fzf_git_diff_branch(args)
     },
   }
 end
-
 
 -- vim.keymap.set('n', '<leader>rt', function() M.fzf_icons() end)
 -- vim.keymap.set('n', '<leader>rr', ':update | luafile %<cr>')
