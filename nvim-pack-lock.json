@@ -21,6 +21,10 @@
       "rev": "1a66cabaa4a4da0be107d5eda6d57242f0fe7e49",
       "src": "https://github.com/rcarriga/nvim-dap-ui"
     },
+    "dark2026.nvim": {
+      "rev": "3fc6ca199a3537b46e49dbe5eed669fe9ff0d63e",
+      "src": "https://github.com/D0nw0r/dark2026.nvim"
+    },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
