@@ -24,7 +24,7 @@ vim.opt.autoindent = true
 vim.opt.breakindent = true
 vim.opt.breakindentopt = 'list:2,min:20,sbr'
 vim.opt.linebreak = true
-vim.opt.showbreak = '↪ '
+vim.opt.showbreak = '󱞵 '
 
 -- Search
 vim.opt.ignorecase = true
