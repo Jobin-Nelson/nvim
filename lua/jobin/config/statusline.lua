@@ -188,7 +188,7 @@ end
 
 ---@type table<string, vim.api.keyset.highlight>
 local statusline_highlights = {
-  StatusLine = { link = 'Normal' },
+  StatusLine = { bg = 'none' },
   StatuslineMode = { bold = true },
   StatuslineProgress = { bold = true },
 }
