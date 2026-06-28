@@ -140,7 +140,7 @@ end
 
 require('jobin.config.lazy').ll_on_map(
   'n',
-  '<leader>o',
+  '<leader>oa',
   function() vim.cmd('Org agenda') end,
   load_fn,
   'Orgmode'
