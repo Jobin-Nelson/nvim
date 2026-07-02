@@ -138,19 +138,13 @@ local function load_fn()
 end
 
 
-require('jobin.config.lazy').ll_on_map(
-  'n',
-  '<leader>oa',
-  function() vim.cmd('Org agenda') end,
-  load_fn,
-  'Orgmode'
-)
+require('jobin.config.lazy').ll_on_cmd('Org', load_fn, 'Orgmode')
 
-vim.api.nvim_create_autocmd('FileType', {
-  group = vim.api.nvim_create_augroup('jobin/filetype', { clear = false }),
-  once = true,
-  pattern = {
-    'org',
-  },
-  callback = load_fn
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+--   group = vim.api.nvim_create_augroup('jobin/filetype', { clear = false }),
+--   once = true,
+--   pattern = {
+--     'org',
+--   },
+--   callback = load_fn
+-- })
