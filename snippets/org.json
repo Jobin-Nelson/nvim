@@ -16,9 +16,9 @@
       "title-work"
     ],
     "body": [
-      "#+TITLE:     ${TM_FILENAME}",
-      "#+AUTHOR:    Jobin Nelson",
-      "#+ARCHIVE:   ~/playground/dev/infosys/notes/infosys_archive.org_archive",
+      "#+TITLE:   ${TM_FILENAME}",
+      "#+AUTHOR:  Jobin Nelson",
+      "#+ARCHIVE: ~/playground/dev/infosys/notes/infosys_archive.org_archive",
       ""
     ],
     "description": "header for work org files"

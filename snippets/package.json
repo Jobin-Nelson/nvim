@@ -27,6 +27,13 @@
       },
       {
         "language": [
+          "javascriptreact",
+          "typescriptreact"
+        ],
+        "path": "./typescript.json"
+      },
+      {
+        "language": [
           "shellscript",
           "shell",
           "sh",

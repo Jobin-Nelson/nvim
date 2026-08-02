@@ -1,0 +1,11 @@
+{
+  "link": {
+    "prefix": [
+      "<li"
+    ],
+    "body": [
+      "<Link href=\"$1\">$0</Link>"
+    ],
+    "description": "React native Link"
+  }
+}
