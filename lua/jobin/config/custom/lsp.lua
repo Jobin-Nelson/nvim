@@ -17,7 +17,9 @@ function M.stop_hidden_lsp()
   local inactive_lsps = vim.tbl_filter(function(lsp)
     return not vim.list_contains(active_lsp_ids, lsp.id)
   end, not_copilot(vim.lsp.get_clients()))
-  vim.lsp.stop_client(inactive_lsps, true)
+  for _, lsp in ipairs(inactive_lsps) do
+    lsp:stop(true)
+  end
   vim.notify("All Inactive LSP's are stopped", vim.log.levels.INFO, { title = 'LSP' })
 end
 
@@ -31,7 +33,9 @@ function M.display_active_lsp()
 end
 
 function M.stop_lsp()
-  vim.lsp.stop_client(not_copilot(vim.lsp.get_clients()), true)
+  for _, lsp in ipairs(vim.lsp.get_clients()) do
+    lsp:stop(true)
+  end
   vim.notify("All LSP's are stopped", vim.log.levels.INFO, { title = 'LSP' })
 end
 

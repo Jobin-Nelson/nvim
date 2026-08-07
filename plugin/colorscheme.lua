@@ -26,5 +26,4 @@ vim.api.nvim_create_autocmd("Signal", {
   group = vim.api.nvim_create_augroup('jobin/matugen', { clear = false }),
 })
 
-
-source_matugen()
+vim.cmd('colorscheme cat')
