@@ -6,9 +6,9 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Basic
--- map('n', '<leader>e', '<cmd>Lexplore 30<cr>', { desc = 'Open Explorer (cwd)' })
--- map('n', '<leader>E', '<cmd>silent! Lexplore %:h<cr>', { desc = 'Open Explorer (file)' })
--- map('n', '-', '<cmd>Ex<cr>', { desc = 'Open Explorer' })
+map('n', '<leader>e', '<cmd>Lexplore 30<cr>', { desc = 'Open Explorer (cwd)' })
+map('n', '<leader>E', '<cmd>silent! Lexplore %:h<cr>', { desc = 'Open Explorer (file)' })
+map('n', '-', '<cmd>Ex<cr>', { desc = 'Open Explorer' })
 map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map('v', '<', '<gv', { silent = true, desc = 'Indent Inward' })

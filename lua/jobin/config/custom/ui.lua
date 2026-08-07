@@ -95,3 +95,4 @@ function M.toggle_codelens()
 end
 
 return M
+

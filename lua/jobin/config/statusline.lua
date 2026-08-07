@@ -41,28 +41,6 @@ local modes = {
 local icons = require('jobin.config.icons')
 
 ---@return string
-local function vcs_component()
-  ---@diagnostic disable-next-line: undefined-field
-  local head = vim.b.gitsigns_head
-  return head and string.format('%%#StatuslineGitBranch#%s %s', icons.git.Branch, head) or ''
-end
-
----@return string
-local function diff()
-  ---@diagnostic disable-next-line: undefined-field
-  local diff_info = vim.b.gitsigns_status_dict
-  if not diff_info then return '' end
-  return table.concat({
-    (diff_info.added and diff_info.added ~= 0) and
-    ("%%#%s#%s%s"):format('GitSignsAdd', icons.git.LineAdded, diff_info.added) or '',
-    (diff_info.changed and diff_info.changed ~= 0) and
-    ("%%#%s#%s%s"):format('GitSignsChange', icons.git.LineModified, diff_info.changed) or '',
-    (diff_info.removed and diff_info.removed ~= 0) and
-    ("%%#%s#%s%s"):format('GitSignsDelete', icons.git.LineRemoved, diff_info.removed) or '',
-  }, ' ')
-end
-
----@return string
 local function mode_component()
   local mode = modes[vim.api.nvim_get_mode().mode] or 'UNKOWN'
   -- Set the highlight group.
@@ -79,29 +57,17 @@ local function file_component()
   local buf_name = vim.api.nvim_buf_get_name(0)
   local filename, ext = vim.fn.fnamemodify(buf_name, ':t'), vim.fn.fnamemodify(buf_name, ':e')
 
-  local ok, nvim_web_devicons = pcall(require, 'nvim-web-devicons')
-  local icon, icon_hl
-  if not ok then
-    icon = icons.kind.File
-  else
-    icon, icon_hl = nvim_web_devicons.get_icon(filename, ext)
-    if not icon then
-      icon, icon_hl = nvim_web_devicons.get_icon_by_filetype(filetype, { default = true })
-    end
-  end
+  local icon = icons.kind.File
 
   local is_modified = vim.api.nvim_get_option_value('modified', { buf = 0 }) and icons.ui.FileModified or ''
   local is_readonly = vim.api.nvim_get_option_value('readonly', { buf = 0 }) and icons.ui.FileReadOnly or ''
-  return string.format('%%#%s#%s %%#StatuslineFilename# %s %s%s',
-    icon_hl, icon, filename, is_modified, is_readonly)
+  return string.format('%%##%s %%#StatuslineFilename# %s %s%s',
+    icon, filename, is_modified, is_readonly)
 end
 
 local last_diagnostic_component = ''
 ---@return string
 local function diagnostics()
-  if vim.bo.filetype == 'lazy' then
-    return ''
-  end
   -- Use the last computed value if in insert mode.
   if vim.startswith(vim.api.nvim_get_mode().mode, 'i') then
     return last_diagnostic_component
@@ -173,8 +139,8 @@ function M.status()
 
   return table.concat({
     mode_component(),
-    vcs_component(),
-    diff(),
+    -- vcs_component(),
+    -- diff(),
     filler,
     file_component(),
     filler,
@@ -202,3 +168,4 @@ end
 -- "%<%f %h%w%m%r %{% v:lua.require('vim._core.util').term_exitcode() %}%=%{% luaeval('(package.loaded[''vim.ui''] and vim.api.nvim_get_current_win() == tonumber(vim.g.actual_curwin or -1) and vim.ui.progress_status()) or '''' ')%}%{% &showcmdloc == 'statusline' ? '%-10.S ' : '' %}%{% exists('b:keymap_name') ? '<'..b:keymap_name..'> ' : '' %}%{% &busy > 0 ? '◐ ' : '' %}%{% luaeval('(package.loaded[''vim.diagnostic''] and next(vim.diagnostic.count()) and vim.diagnostic.status() .. '' '') or '''' ') %}%{% &ruler ? ( &rulerformat == '' ? '%-14.(%l,%c%V%) %P' : &rulerformat ) : '' %}'"
 
 return M
+

@@ -1,7 +1,0 @@
-{
-  "if func okay": {
-    "prefix": "io",
-    "body": "if ${1:value}, ok := ${2:myFunc}; ok {\n\t$0\n}",
-    "description": "def main"
-  }
-}
