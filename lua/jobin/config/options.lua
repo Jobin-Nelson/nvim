@@ -36,9 +36,6 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 vim.opt.signcolumn = 'yes'
 vim.opt.showmode = false
-vim.opt.pumheight = 10
-vim.opt.pumblend = 0
-vim.opt.completeopt = 'menu,menuone,noinsert,noselect,popup'
 vim.opt.conceallevel = 2
 vim.opt.synmaxcol = 300
 vim.opt.virtualedit = 'block'
@@ -46,6 +43,16 @@ vim.opt.list = true
 vim.opt.listchars = "tab:󰅂 ,trail:-,nbsp:+"
 require('vim._core.ui2').enable({ msg = { target = 'cmd' } })
 
+-- Completion
+vim.opt.path:append('**')
+vim.opt.pumheight = 10
+vim.opt.pumblend = 0
+vim.opt.completeopt = 'fuzzy,menu,menuone,noinsert,popup,preview'
+vim.opt.wildmode = "noselect,list,lastused"
+vim.opt.wildignore = ".git/*,node_modules/*,venv/*,undodir/*,.vim/*"
+-- vim.opt.wildignore = "undodir*"
+vim.opt.wildoptions = 'fuzzy,pum'
+vim.opt.wildmenu = true
 
 -- File handling
 vim.opt.backup = false
@@ -58,7 +65,6 @@ vim.opt.autoread = true
 
 -- Behavior
 -- vim.opt.iskeyword:append('-')
--- vim.opt.path:append('**')
 vim.opt.mouse = 'a'
 vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
 
@@ -169,4 +175,3 @@ vim.filetype.add({
     ["%.env%.[%w_.-]+"] = "dotenv",
   },
 })
-

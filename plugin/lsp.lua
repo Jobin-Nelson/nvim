@@ -45,9 +45,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if not client then return end
 
     -- Native Completion
-    -- if client:supports_method('textDocument/completion') then
-    --   vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-    -- end
+    if client:supports_method('textDocument/completion') then
+      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+    end
 
     if client:supports_method('textDocument/codeLens') then
       map('<leader>ll', require('jobin.config.custom..ui').toggle_codelens, 'Toggle Codelens')
