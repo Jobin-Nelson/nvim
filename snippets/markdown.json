@@ -8,6 +8,22 @@
     ],
     "description": "Title Case the filename"
   },
+  "kanban": {
+    "prefix": [
+      "kanban"
+    ],
+    "body": [
+      "# To Do",
+      "$0",
+      "",
+      "# In Progress",
+      "",
+      "",
+      "# Done",
+      ""
+    ],
+    "description": "Kanban view in markdown"
+  },
   "daily-update": {
     "prefix": [
       "daily-update"

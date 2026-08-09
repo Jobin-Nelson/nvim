@@ -204,3 +204,5 @@ end, {
     end
   end,
 })
+
+vim.api.nvim_create_user_command('Setlang', 'compiler pyunit | set makeprg=python3', { nargs = 0 })
