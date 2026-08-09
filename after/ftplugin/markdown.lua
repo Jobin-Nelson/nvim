@@ -99,9 +99,89 @@ local function toggle_checkbox()
   vim.api.nvim_set_current_line(new_line)
 end
 
+local function move_node_to_sibling_header(direction)
+  local node = vim.treesitter.get_node()
+  if not node then return end
+
+  -- 1. Find the current "section" node we are inside
+  ---@type TSNode?
+  local current_section = node
+  while current_section and current_section:type() ~= "section" do
+    current_section = current_section:parent()
+  end
+
+  if not current_section then return end
+
+  -- 2. Find the target section (next or previous)
+  local target_section
+  if direction == "next" then
+    target_section = current_section:next_sibling()
+    while target_section and target_section:type() ~= "section" do
+      target_section = target_section:next_sibling()
+    end
+  else
+    target_section = current_section:prev_sibling()
+    while target_section and target_section:type() ~= "section" do
+      target_section = target_section:prev_sibling()
+    end
+  end
+
+  if not target_section then
+    return vim.notify(
+      "No more sibling headers found in this direction.",
+      vim.log.levels.WARN,
+      { title = 'Markdown' }
+    )
+  end
+
+  -- 3. Determine the exact node/block to move
+  local move_node
+  local temp = node --[[@as TSNode?]]
+
+  -- First, check if we are inside a list item. We grab the closest one.
+  -- This ensures if you are on a nested list item, it grabs that item and its children.
+  while temp and temp:parent() and temp:parent() ~= current_section do
+    move_node = temp
+    temp = temp:parent()
+  end
+
+  -- If we aren't in a list item, find the highest block-level child of the section
+  -- (e.g., a whole paragraph, a code block, or a quote block)
+  if not move_node then
+    temp = node
+    while temp and temp:parent() and temp:parent() ~= current_section do
+      temp = temp:parent()
+    end
+    if temp and temp:type() ~= "section" then
+      move_node = temp
+    end
+  end
+
+  -- Fallback in case something went wrong, though unlikely in a valid markdown file
+  if not move_node then move_node = node end
+
+  -- 4. Get the full line range of the node
+  vim.print(move_node:type())
+  local start_row, _, end_row, _ = move_node:range()
+  start_row = start_row + 1
+  -- end_row = math.max(start_row, end_row - 1)
+
+  -- 5. Determine insertion point under target header
+  local insert_row = target_section:start()
+  insert_row = insert_row + 1
+
+  local cmd = ('silent %s,%smove %s'):format(start_row, end_row, insert_row)
+  vim.cmd(cmd)
+end
 
 -- keymaps
-vim.keymap.set('n', '<C-Space>', toggle_checkbox, { desc = 'Toggle Checkbox', buffer = 0 })
-vim.keymap.set('n', 'g{', jump_to_parent_header, { desc = "Parent Header" })
-vim.keymap.set('n', '[{', function() jump_to_sibling_header("prev") end, { desc = "Prev Sibling Header" })
-vim.keymap.set('n', ']}', function() jump_to_sibling_header("next") end, { desc = "Next Sibling Header" })
+vim.keymap.set('n', '<C-Space>', toggle_checkbox, { desc = 'Toggle Checkbox', buf = 0 })
+vim.keymap.set('n', 'g{', jump_to_parent_header, { desc = "Parent Header", buf = 0 })
+vim.keymap.set('n', '[{', function() jump_to_sibling_header("prev") end,
+  { desc = "Jump to prev Sibling Header", buf = 0 })
+vim.keymap.set('n', ']}', function() jump_to_sibling_header("next") end,
+  { desc = "Jump to next Sibling Header", buf = 0 })
+vim.keymap.set('n', '<leader>[', function() move_node_to_sibling_header("prev") end,
+  { desc = "Move block to Prev Sibling Header", buf = 0 })
+vim.keymap.set('n', '<leader>]', function() move_node_to_sibling_header("next") end,
+  { desc = "Move block to Next Sibling Header", buf = 0 })
