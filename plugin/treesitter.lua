@@ -194,4 +194,3 @@ end
 
 require('treesitter-context').setup({ mode = "cursor", max_lines = 3 })
 require('nvim-ts-autotag').setup()
-

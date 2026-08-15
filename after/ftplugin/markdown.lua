@@ -36,7 +36,6 @@ local function jump_to_parent_header()
   end
 end
 
-
 local function jump_to_sibling_header(direction)
   local node = vim.treesitter.get_node()
   if not node then return end
@@ -80,7 +79,6 @@ local function jump_to_sibling_header(direction)
     )
   end
 end
-
 
 local function toggle_checkbox()
   local line = vim.api.nvim_get_current_line()
