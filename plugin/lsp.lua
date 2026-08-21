@@ -9,25 +9,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.keymap.set(mode or 'n', keys, func, { buffer = args.buf, desc = desc })
     end
 
-    -- Fzf mappings
-    map('gd', '<cmd>FzfLua lsp_definitions jump1=true ignore_current_line=true<cr>',
-      'Goto [D]efinition')
-    map('grr', '<cmd>FzfLua lsp_references jump1=true ignore_current_line=true<cr>',
-      'Goto [R]eferences')
-    map('gri', '<cmd>FzfLua lsp_implementations jump1=true ignore_current_line=true<cr>',
-      'Goto [I]mplementation')
-    map('grt', '<cmd>FzfLua lsp_typedefs jump1=true ignore_current_line=true<cr>',
-      'Goto [T]ype Definition')
-    map('<leader>ld', '<cmd>FzfLua diagnostics_document jump1=true<cr>',
-      'Open [D]iagnostic Buffer')
-    map('<leader>lD', '<cmd>FzfLua diagnostics_workspace<cr>', 'Open [D]iagnostics Workspace')
-    map('<leader>ls', '<cmd>FzfLua lsp_document_symbols jump1=true<cr>',
-      'Lsp Document Symbols')
-    map('<leader>lS',
-      '<cmd>FzfLua lsp_live_workspace_symbols jump1=true ignore_current_line=true<cr>',
-      'Lsp Workspace Symbols')
-    map('gra', '<cmd>FzfLua lsp_code_actions<cr>', 'Lsp Code Actions')
-
+    map('gd', vim.lsp.buf.definition, 'Goto [D]efinition')
     map('gD', vim.lsp.buf.declaration, 'Goto [D]eclaration')
     map('<leader>lq', vim.diagnostic.setloclist, 'Set diagnostic quickfix')
 
