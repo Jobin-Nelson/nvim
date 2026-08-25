@@ -527,7 +527,6 @@ function M.wrap_cli(cmd, opts)
 end
 
 function M.edit_arglist()
-
   local fwin = M.create_floating_window({
     title = ' Arglist ',
     width = 0.6,
@@ -575,14 +574,20 @@ function M.edit_arglist()
     vim.api.nvim_win_close(arglist_win, true)
   end)
 
+  vim.keymap.set('n', '<Enter>', function()
+    local selected_arg = vim.api.nvim_get_current_line()
+    vim.api.nvim_win_close(arglist_win, true)
+    if #selected_arg ~= 0 then
+      vim.cmd(('edit %s'):format(selected_arg))
+    end
+  end)
+
   vim.keymap.set('n', '<C-c>', function()
     vim.api.nvim_win_close(arglist_win, true)
   end)
 end
 
--- vim.keymap.set({ 'n', 'v' }, '<leader>rt', function() M.yank_dedent() end)
+-- vim.keymap.set({ 'n', 'v' }, '<leader>rt', function() M.edit_arglist() end)
 -- vim.keymap.set('n', '<leader>rr', ':update | luafile %<cr>')
 
 return M
-
-
