@@ -572,7 +572,7 @@ function M.edit_arglist()
     vim.notify("Arglist updated", vim.log.levels.INFO, { title = 'Utils' })
 
     vim.api.nvim_win_close(arglist_win, true)
-  end)
+  end, { buf = arglist_buf })
 
   vim.keymap.set('n', '<Enter>', function()
     local selected_arg = vim.api.nvim_get_current_line()
@@ -580,11 +580,11 @@ function M.edit_arglist()
     if #selected_arg ~= 0 then
       vim.cmd(('edit %s'):format(selected_arg))
     end
-  end)
+  end, { buf = arglist_buf })
 
   vim.keymap.set('n', '<C-c>', function()
     vim.api.nvim_win_close(arglist_win, true)
-  end)
+  end, { buf = arglist_buf })
 end
 
 -- vim.keymap.set({ 'n', 'v' }, '<leader>rt', function() M.edit_arglist() end)
