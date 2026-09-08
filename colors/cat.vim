@@ -4,6 +4,7 @@ hi Normal guibg=None ctermbg=None
 hi! link StatusLine Normal
 hi StatuslineProgress cterm=bold
 hi TreesitterContextBottom cterm=underline
+hi Comment ctermfg=103 guifg=#9399b2 cterm=italic gui=italic
 
 hi WinSeparator guifg=#45475b
 
