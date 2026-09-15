@@ -102,7 +102,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.pack.add({
       {
         src = 'https://github.com/mrcjkb/rustaceanvim',
-        version = vim.version.range('^8'),
+        version = vim.version.range('^9'),
       }
     }, { confirm = false })
   end
