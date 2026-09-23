@@ -92,6 +92,7 @@ vim.opt.splitright = true
 
 -- Session
 vim.opt.sessionoptions = 'curdir,folds,globals,help,tabpages,terminal,winsize'
+vim.opt.runtimepath:append('.nvim') -- project level nvim config
 
 -- Statusbar
 -- vim.opt.statusline= "%<%=%(%f %h%m%r%)%=%-14.(%l,%c%V%) %P"
