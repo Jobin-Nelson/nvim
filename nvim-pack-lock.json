@@ -125,7 +125,7 @@
     "rustaceanvim": {
       "rev": "f69c85a955b9a83d495e3dc8d43adb6364a0b765",
       "src": "https://github.com/mrcjkb/rustaceanvim",
-      "version": "8.0.0 - 9.0.0"
+      "version": "9.0.0 - 10.0.0"
     },
     "schemastore.nvim": {
       "rev": "05e938c0aa5dfbdbb11972fa4c8a85f27f402ba0",
