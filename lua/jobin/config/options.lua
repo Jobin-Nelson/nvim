@@ -114,6 +114,9 @@ vim.opt.formatoptions = vim.opt.formatoptions
     + "j" -- Auto-remove comments if possible.
     - "2" -- I'm not in gradeschool anymore
 
+-- Netrw
+vim.g.netrw_bufsettings = 'noma nomod nu rnu nowrap ro nobl'
+
 -- disabled
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_node_provider = 0
