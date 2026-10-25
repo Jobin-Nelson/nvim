@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- end
 
     if client:supports_method('textDocument/codeLens') then
-      map('<leader>ll', require('jobin.config.custom..ui').toggle_codelens, 'Toggle Codelens')
+      map('<leader>ll', require('jobin.config.custom.ui').toggle_codelens, 'Toggle Codelens')
       -- vim.lsp.codelens.enable()
     end
   end,
